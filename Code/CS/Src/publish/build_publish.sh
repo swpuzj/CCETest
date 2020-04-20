@@ -19,7 +19,7 @@ if [ $? -ne 0 ] ; then
     exit 1
 fi
 
-cd ../publish
+cd publish
 
 docker build -t ccetest:1.0 .
 

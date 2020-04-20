@@ -2,7 +2,7 @@ FROM aspnetcore:3.1-alpine
 WORKDIR /app
 EXPOSE 80
 
-# ½â¾ödockerÖĞµÄÈİÆ÷ÎŞ·¨Ê¹ÓÃÖĞÎÄµÄÎÊÌâ
+# è§£å†³dockerä¸­çš„å®¹å™¨æ— æ³•ä½¿ç”¨ä¸­æ–‡çš„é—®é¢˜
 ENV LANG C.UTF-8
 WORKDIR /app
 COPY app/ /app/

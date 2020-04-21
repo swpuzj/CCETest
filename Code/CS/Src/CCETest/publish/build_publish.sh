@@ -9,16 +9,17 @@ cd $bin
 
 rm -rf app/* 
 
-cd ../CCE.Web
+cd ../
+cd CCE.Web/
 
-dotnet publish CCETest.Web.csproj -c Release -o publish/app
+dotnet publish CCETest.Web.csproj -c Release -o ../publish/app
 
 if [ $? -ne 0 ] ; then
     echo "dotnet build error"
     exit 1
 fi
 
-cd publish
+cd ../publish
 
 docker build -t ccetest:1.0 .
 

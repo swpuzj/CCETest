@@ -8,8 +8,15 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\Study\NetCore\CCETest\CCETest\CCETest.xml</DocumentationFile>
+    <DocumentationFile>E:\Study\NetCore\CCETest\Code\CS\Src\CCETest\CCE.Web\CCETest.Web.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="publish\**" />
+    <Content Remove="publish\**" />
+    <EmbeddedResource Remove="publish\**" />
+    <None Remove="publish\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.3" />
@@ -18,6 +25,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.3.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.3.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CCE.Models\CCETest.Models.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="http://json.schemastore.org/ninjs-1.2.json" /></VisualStudio></ProjectExtensions>

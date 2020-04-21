@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CCE.Models\CCE.Models.csproj" />
+    <ProjectReference Include="..\CCE.Models\CCETest.Models.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="http://json.schemastore.org/ninjs-1.2.json" /></VisualStudio></ProjectExtensions>

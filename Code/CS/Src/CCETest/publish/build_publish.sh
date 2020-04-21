@@ -9,7 +9,7 @@ cd $bin
 
 rm -rf app/* 
 
-cd ../
+cd ../CCE.Web
 
 dotnet publish CCETest.Web.csproj -c Release -o publish/app
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CCE.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -71,6 +72,7 @@ namespace CCETest
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "CCETest API Doc");
             });
 
+            //app.UseMiddleware<LoggingMiddleware>();
             app.UseRouting();
 
             app.UseAuthentication();

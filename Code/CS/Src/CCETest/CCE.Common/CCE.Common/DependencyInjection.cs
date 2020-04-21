@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CCETest.Common
+namespace CCE.Common
 {
     public sealed class DependencyInjection
     {

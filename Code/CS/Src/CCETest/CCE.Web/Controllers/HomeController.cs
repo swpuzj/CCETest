@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CCE.Common;
 using CCE.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -20,17 +21,18 @@ namespace CCETest.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<HomeController> _logger;
+        private readonly LogHelper _logger=LogHelper.CreateLogger<HomeController>();
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
         }
 
         [HttpGet]
         [Authorize(Roles = "User")]
         public IEnumerable<string> Get()
         {
+            _logger.Info("aaaa");
+            _logger.Info(Summaries.Count().ToString());
             return Summaries;
         }
 
@@ -70,6 +72,7 @@ namespace CCETest.Controllers
                 };
 
                 await HttpContext.SignInAsync("MyCookieAuthenticationScheme", new ClaimsPrincipal(identity));
+                _logger.Info("验证ok");
                 return Ok("身份验证成功");
             }
             else
@@ -83,8 +86,8 @@ namespace CCETest.Controllers
         public IEnumerable<string> Set(string req)
         {
             var rng = new Random();
+            _logger.Info("获取数据成功。");
             return Summaries;
-          
         }
     }
 }

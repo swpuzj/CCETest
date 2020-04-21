@@ -11,7 +11,7 @@ rm -rf app/*
 
 cd ../
 
-dotnet publish CCETest.csproj -c Release -o publish/app
+dotnet publish CCETest.Web.csproj -c Release -o publish/app
 
 if [ $? -ne 0 ] ; then
     echo "dotnet build error"

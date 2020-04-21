@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\Study\NetCore\CCETest\CCETest\CCETest.xml</DocumentationFile>
+    <DocumentationFile>E:\Study\NetCore\CCETest\Code\CS\Src\CCETest\CCE.Web\CCETest.Web.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

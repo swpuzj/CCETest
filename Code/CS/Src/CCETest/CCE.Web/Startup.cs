@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Serilog.Extensions.Hosting;
 
 namespace CCETest
 {
@@ -44,8 +45,6 @@ namespace CCETest
                     o.SessionStore = services.BuildServiceProvider().GetService<ITicketStore>();
                     o.SlidingExpiration = true;
                 });
-
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -64,7 +63,7 @@ namespace CCETest
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
@@ -72,7 +71,7 @@ namespace CCETest
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "CCETest API Doc");
             });
 
-            //app.UseMiddleware<LoggingMiddleware>();
+            app.UseMiddleware<LoggingMiddleware>();
             app.UseRouting();
 
             app.UseAuthentication();

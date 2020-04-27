@@ -12,5 +12,11 @@
             <param name="password">密码</param>
             <returns></returns>
         </member>
+        <member name="M:CCETest.Controllers.HomeController.LoginOut">
+            <summary>
+            退出登录
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -33,13 +33,13 @@ namespace CCETest
             services.AddControllers();
 
             //增加Cookie中间件配置
-            services.AddAuthentication("MyCookieAuthenticationScheme")
-                .AddCookie("MyCookieAuthenticationScheme", o =>
+            services.AddAuthentication("MyAuthentication")
+                .AddCookie("MyAuthentication", o =>
                 {
                     o.LoginPath = new PathString("/Home/Login"); // 登录页面的url
                     o.AccessDeniedPath = new PathString("/Home/Login");//没有授权跳转的页面
                     o.ExpireTimeSpan = TimeSpan.FromHours(0.5); // cookies的过期时间
-                    o.Cookie.Name = "MyCookieAuthenticationScheme";
+                    o.Cookie.Name = "MyCookieName";
                     o.Cookie.Path = "/";
                     o.Cookie.HttpOnly = true;
                     o.SessionStore = services.BuildServiceProvider().GetService<ITicketStore>();

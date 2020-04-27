@@ -8,7 +8,6 @@ using CCE.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace CCETest.Controllers
 {
@@ -18,7 +17,7 @@ namespace CCETest.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "Freezing1", "Bracing2", "Chilly3", "Cool4", "Mild5", "Warm6", "Balmy7", "Hot", "Sweltering", "Scorching"
         };
 
         private readonly LogHelper _logger=LogHelper.CreateLogger<HomeController>();
@@ -55,23 +54,27 @@ namespace CCETest.Controllers
         [HttpGet("login/{name}/{password}")]
         public async Task<IActionResult> Login(string name, string password)
         {
-            var user = SysUsers.FirstOrDefault(u=>u.UserName==name);
+            var user = SysUsers.FirstOrDefault(u=>u.UserName==name&&u.PassWord.Equals(password));
             if (user != null)
             {
-                user.AuthenticationType = "MyCookieAuthenticationScheme";// CookieAuthenticationDefaults.AuthenticationScheme;
+                user.AuthenticationType = "authentication";// CookieAuthenticationDefaults.AuthenticationScheme;
                 var identity = new ClaimsIdentity(user.AuthenticationType);
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.UserId));
                 identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
                 identity.AddClaim(new Claim(ClaimTypes.Role, "User"));
+
+
+                DateTimeOffset tokenExp = GetExpDateTime(1800);
 
                 var authProperties = new AuthenticationProperties
                 {
                     AllowRefresh = true,
                     IsPersistent = false,
                     IssuedUtc = DateTimeOffset.UtcNow,
+                    ExpiresUtc = DateTime.UtcNow.AddMinutes(20)
                 };
 
-                await HttpContext.SignInAsync("MyCookieAuthenticationScheme", new ClaimsPrincipal(identity));
+                await HttpContext.SignInAsync("MyAuthentication", new ClaimsPrincipal(identity), authProperties);
                 _logger.Info("验证ok");
                 return Ok("身份验证成功");
             }
@@ -81,13 +84,32 @@ namespace CCETest.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpPost("set")]
-        public IEnumerable<string> Set(string req)
+        /// <summary>
+        /// 退出登录
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("signout")]
+        public async Task<ActionResult> LoginOut()
         {
-            var rng = new Random();
+            await HttpContext.SignOutAsync("MyAuthentication");
+            return Ok("退出成功");
+        }
+
+        private DateTimeOffset GetExpDateTime(int exp)
+        {
+            return new DateTimeOffset(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc))
+                .AddSeconds(exp)
+                .ToLocalTime();
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("test")]
+        public async Task<string> Test()
+        {
             _logger.Info("获取数据成功。");
-            return Summaries;
+            return "角色:Admin，获取数据成功";
         }
     }
 }

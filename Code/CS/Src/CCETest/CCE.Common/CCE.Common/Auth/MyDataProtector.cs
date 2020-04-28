@@ -11,12 +11,12 @@ namespace CCE.Common.Auth
 
         public byte[] Protect(byte[] plaintext)
         {
-            return AesEncrypt.Encrypt(plaintext, "SobeyHive1234567", "SobeyHive1234567");
+            return AesEncrypt.Encrypt(plaintext, "TestaTest1234567", "TestaTest1234567");
         }
 
         public byte[] Unprotect(byte[] protectedData)
         {
-            return AesEncrypt.Decrypt(protectedData, "SobeyHive1234567", "SobeyHive1234567");
+            return AesEncrypt.Decrypt(protectedData, "TestaTest1234567", "TestaTest1234567");
         }
     }
 }

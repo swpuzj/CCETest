@@ -11,7 +11,7 @@ namespace CCE.Common.Auth
         /// <summary> 
         /// 获取向量 
         /// </summary> 
-        private static string Iv => "SobeyHive1234567";
+        private static string Iv => "TestaTest1234567";
 
         #region ========加密========
 

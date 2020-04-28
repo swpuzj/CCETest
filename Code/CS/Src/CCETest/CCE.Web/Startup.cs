@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CCE.Common;
+using CCE.Common.Auth;
 using CCE.Middleware;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -38,12 +40,23 @@ namespace CCETest
                 {
                     o.LoginPath = new PathString("/Home/Login"); // 登录页面的url
                     o.AccessDeniedPath = new PathString("/Home/Login");//没有授权跳转的页面
-                    o.ExpireTimeSpan = TimeSpan.FromHours(0.5); // cookies的过期时间
+                    o.ExpireTimeSpan = TimeSpan.FromHours(1); // cookies的过期时间
                     o.Cookie.Name = "MyCookieName";
                     o.Cookie.Path = "/";
+                    o.Cookie.MaxAge = TimeSpan.FromHours(4);
                     o.Cookie.HttpOnly = true;
                     o.SessionStore = services.BuildServiceProvider().GetService<ITicketStore>();
                     o.SlidingExpiration = true;
+
+                    o.DataProtectionProvider = new MyDataProtector();
+
+                    o.Events.OnRedirectToLogin = context =>
+                    {
+                        context.Response.Clear();
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        context.Response.Headers["Location"] = "/Home/Login";
+                        return Task.CompletedTask;
+                    };
                 });
             services.AddSwaggerGen(c =>
             {
@@ -59,6 +72,7 @@ namespace CCETest
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            DependencyInjection.Init(app.ApplicationServices);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

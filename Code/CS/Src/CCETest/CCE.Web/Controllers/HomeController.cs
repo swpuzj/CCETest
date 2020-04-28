@@ -21,9 +21,10 @@ namespace CCETest.Controllers
         };
 
         private readonly LogHelper _logger=LogHelper.CreateLogger<HomeController>();
-
-        public HomeController()
+        private IServiceProvider m_ServiceProvider;
+        public HomeController(IServiceProvider serviceProvider)
         {
+            m_ServiceProvider = serviceProvider;
         }
 
         [HttpGet]
@@ -108,6 +109,8 @@ namespace CCETest.Controllers
         [HttpPost("test")]
         public async Task<string> Test()
         {
+            var a = ControllerContext.HttpContext.Request.Headers;
+
             _logger.Info("获取数据成功。");
             return "角色:Admin，获取数据成功";
         }
